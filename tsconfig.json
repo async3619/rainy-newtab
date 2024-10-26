@@ -1,4 +1,9 @@
 {
+  "compilerOptions": {
+    "types": [
+      "vite-plugin-glsl/ext"
+    ]
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
