@@ -2,7 +2,7 @@
   "compilerOptions": {
     "types": [
       "vite-plugin-glsl/ext"
-    ]
+    ],
   },
   "files": [],
   "references": [

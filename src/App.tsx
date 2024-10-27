@@ -1,9 +1,9 @@
 import { Global, ThemeProvider } from '@emotion/react'
 
-import BackgroundCanvas from './components/BackgroundCanvas'
-import Settings from './components/Settings'
+import BackgroundCanvas from '@components/BackgroundCanvas'
+import Settings from '@components/Settings'
 
-import spacing from './utils/spacing'
+import spacing from '@utils/spacing'
 
 import * as Styled from './App.styled'
 

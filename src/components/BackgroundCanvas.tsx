@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import RaindropFX from 'raindrop-fx'
 
-import useAppStore from '../stores/app'
+import useAppStore from '@stores/app'
 
 import * as Styled from './BackgroundCanvas.styled'
 

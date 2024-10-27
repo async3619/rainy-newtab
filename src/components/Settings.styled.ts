@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import IconButton from './IconButton'
+import IconButton from '@components/IconButton'
 
 export const Root = styled.div`
   position: absolute;
