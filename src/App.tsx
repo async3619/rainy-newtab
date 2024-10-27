@@ -24,7 +24,7 @@ function App() {
   const setWeather = useAppStore((store) => store.setWeather)
 
   useEffect(() => {
-    if (!geolocation) {
+    if (geolocation) {
       return
     }
 
