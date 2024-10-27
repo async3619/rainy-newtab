@@ -1,9 +1,15 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import RaindropFX from 'raindrop-fx'
 
 import * as Styled from './BackgroundCanvas.styled'
 
-function BackgroundCanvas() {
+interface BackgroundCanvasProps {
+  imageSrc: string
+}
+
+function BackgroundCanvas({ imageSrc }: BackgroundCanvasProps) {
+  const [isReady, setIsReady] = useState(false)
+
   const viewportRef = useRef<HTMLCanvasElement>(null)
   const raindropsRef = useRef<RaindropFX | null>(null)
 
@@ -22,12 +28,14 @@ function BackgroundCanvas() {
     })
 
     raindropsRef.current.start()
-    raindropsRef.current.setBackground('/img.png')
+    raindropsRef.current.setBackground(imageSrc).then(() => {
+      setIsReady(true)
+    })
 
     return () => {
       raindropsRef.current?.stop()
     }
-  }, [])
+  }, [imageSrc])
 
   useEffect(() => {
     const onResize = () => {
@@ -50,7 +58,11 @@ function BackgroundCanvas() {
 
   return (
     <Styled.Root>
-      <Styled.Viewport ref={viewportRef} />
+      <Styled.Image src={imageSrc} />
+      <Styled.Viewport
+        ref={viewportRef}
+        isReady={isReady}
+      />
     </Styled.Root>
   )
 }

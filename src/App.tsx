@@ -5,7 +5,7 @@ import * as Styled from './App.styled'
 function App() {
   return (
     <Styled.Root>
-      <BackgroundCanvas />
+      <BackgroundCanvas imageSrc="/img.png" />
       <Styled.Content></Styled.Content>
     </Styled.Root>
   )
