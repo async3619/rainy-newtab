@@ -1,4 +1,17 @@
 import styled from '@emotion/styled'
+import { css } from '@emotion/react'
+
+export const GlobalStyles = css`
+  @font-face {
+    font-family: 'SUITE Variable';
+    font-weight: 300 900;
+    src: url('/SUITE-Variable.woff2') format('woff2-variations');
+  }
+
+  * {
+    font-family: 'SUITE Variable', sans-serif;
+  }
+`
 
 export const Root = styled.main``
 
