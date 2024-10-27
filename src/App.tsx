@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Global, ThemeProvider } from '@emotion/react'
 
 import BackgroundCanvas from '@components/BackgroundCanvas'
@@ -5,13 +6,42 @@ import Settings from '@components/Settings'
 import Clock from '@components/Clock'
 
 import spacing from '@utils/spacing'
+import getCurrentGeolocation from '@utils/getCurrentGeolocation'
+import getCurrentWeather from '@utils/getCurrentWeather'
 
 import useSessionAppStore from '@stores/session-app'
+import useAppStore from '@stores/app'
 
 import * as Styled from './App.styled'
 
 function App() {
   const isReady = useSessionAppStore((store) => store.isReady)
+
+  const geolocation = useAppStore((store) => store.geolocation)
+  const setGeolocation = useAppStore((store) => store.setGeolocation)
+
+  const weather = useAppStore((store) => store.weather)
+  const setWeather = useAppStore((store) => store.setWeather)
+
+  useEffect(() => {
+    if (!geolocation) {
+      return
+    }
+
+    getCurrentGeolocation().then(setGeolocation).catch()
+  }, [geolocation, setGeolocation])
+
+  useEffect(() => {
+    if (!geolocation) {
+      return
+    }
+
+    if (weather && weather.expiresAt > Date.now()) {
+      return
+    }
+
+    getCurrentWeather(geolocation).then(setWeather).catch()
+  }, [geolocation, setWeather, weather])
 
   return (
     <ThemeProvider theme={{ spacing }}>

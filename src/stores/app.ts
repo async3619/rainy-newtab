@@ -1,6 +1,18 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
+import { Weather } from '@utils/getCurrentWeather'
+
+interface WeatherHolder {
+  weather: Weather
+  expiresAt: number
+}
+
+interface LatLng {
+  lat: number
+  lng: number
+}
+
 interface AppStore {
   backgroundImage: string | null
   setBackgroundImage: (backgroundImage: string) => void
@@ -14,6 +26,12 @@ interface AppStore {
 
   isPropertyChanging: boolean
   setPropertyChanging: (isPropertyChanging: boolean) => void
+
+  geolocation: LatLng | null
+  setGeolocation: (geolocation: LatLng) => void
+
+  weather: WeatherHolder | null
+  setWeather: (weather: Weather) => void
 }
 
 const useAppStore = create(
@@ -32,6 +50,15 @@ const useAppStore = create(
       isPropertyChanging: false,
       setPropertyChanging: (isPropertyChanging: boolean) =>
         set({ isPropertyChanging }),
+
+      geolocation: null,
+      setGeolocation: (geolocation: LatLng) => set({ geolocation }),
+
+      weather: null,
+      setWeather: (weather: Weather) => {
+        const expiresAt = Date.now() + 1000 * 60 * 60 // 1 hour
+        set({ weather: { weather, expiresAt } })
+      },
     }),
     {
       name: 'app-store',

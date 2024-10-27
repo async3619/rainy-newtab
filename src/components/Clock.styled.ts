@@ -20,7 +20,13 @@ export const Date = styled.span`
   color: rgba(255, 255, 255, 0.5);
 `
 
-export const Clock = styled.span`
+export const Weather = styled(Date)`
+  margin-top: 8px;
+
+  font-size: 18px;
+`
+
+export const Time = styled.span`
   display: block;
 
   font-size: 94px;
