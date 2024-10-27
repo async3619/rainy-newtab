@@ -32,6 +32,9 @@ const useAppStore = create(
       isPropertyChanging: false,
       setPropertyChanging: (isPropertyChanging: boolean) =>
         set({ isPropertyChanging }),
+
+      isReady: false,
+      setIsReady: (isReady: boolean) => set({ isReady }),
     }),
     {
       name: 'app-store',

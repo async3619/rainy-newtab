@@ -1,18 +1,20 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import RaindropFX from 'raindrop-fx'
 
 import useAppStore from '@stores/app'
+import useSessionAppStore from '@stores/session-app'
 
 import * as Styled from './BackgroundCanvas.styled'
 
 function BackgroundCanvas() {
-  const [isReady, setIsReady] = useState(false)
-
+  const isReady = useSessionAppStore((store) => store.isReady)
   const isPropertyChanging = useAppStore((store) => store.isPropertyChanging)
   const dimmingAmount = useAppStore((store) => store.dimmingAmount)
   const blurAmount = useAppStore((store) => store.blurAmount)
   const backgroundImage =
     useAppStore((store) => store.backgroundImage) ?? '/img.png'
+
+  const setIsReady = useSessionAppStore((store) => store.setIsReady)
 
   const viewportRef = useRef<HTMLCanvasElement>(null)
   const raindropsRef = useRef<RaindropFX | null>(null)
@@ -53,7 +55,7 @@ function BackgroundCanvas() {
     return () => {
       raindropsRef.current?.stop()
     }
-  }, [backgroundImage])
+  }, [backgroundImage, setIsReady])
 
   useEffect(() => {
     const onResize = () => {
