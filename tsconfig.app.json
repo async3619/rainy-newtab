@@ -5,6 +5,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "baseUrl": ".",
 
     /* Bundler mode */
     "moduleResolution": "Bundler",
@@ -24,7 +25,7 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@utils/*": ["src/utils/*"],
-      "@stores/*": ["src/stores/*"],
+      "@stores/*": ["src/stores/*"]
     }
   },
   "include": ["src"]
