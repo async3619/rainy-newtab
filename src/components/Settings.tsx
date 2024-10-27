@@ -4,8 +4,8 @@ import { MdSettings } from 'react-icons/md'
 import Panel from './Panel'
 import FormSection from './FormSection'
 
-import useAppStore from './stores/app'
-import readFileAsBase64 from './utils/readFileAsBase64'
+import useAppStore from '../stores/app'
+import readFileAsBase64 from '../utils/readFileAsBase64'
 
 import * as Styled from './Settings.styled'
 

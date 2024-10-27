@@ -1,7 +1,7 @@
 import { Global, ThemeProvider } from '@emotion/react'
 
-import BackgroundCanvas from './BackgroundCanvas'
-import Settings from './Settings'
+import BackgroundCanvas from './components/BackgroundCanvas'
+import Settings from './components/Settings'
 
 import spacing from './utils/spacing'
 
@@ -12,7 +12,7 @@ function App() {
     <ThemeProvider theme={{ spacing }}>
       <Global styles={Styled.GlobalStyles} />
       <Styled.Root>
-        <BackgroundCanvas imageSrc="/img.png" />
+        <BackgroundCanvas />
         <Styled.Content>
           <Settings />
         </Styled.Content>
