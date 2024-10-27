@@ -2,6 +2,7 @@ import { Global, ThemeProvider } from '@emotion/react'
 
 import BackgroundCanvas from '@components/BackgroundCanvas'
 import Settings from '@components/Settings'
+import Clock from '@components/Clock'
 
 import spacing from '@utils/spacing'
 
@@ -14,6 +15,7 @@ function App() {
       <Styled.Root>
         <BackgroundCanvas />
         <Styled.Content>
+          <Clock />
           <Settings />
         </Styled.Content>
       </Styled.Root>

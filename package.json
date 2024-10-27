@@ -13,6 +13,7 @@
     "@emotion/css": "^11.13.4",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
     "raindrop-fx": "^1.0.8",

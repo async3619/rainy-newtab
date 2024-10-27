@@ -11,6 +11,11 @@ export const GlobalStyles = css`
   * {
     font-family: 'SUITE Variable', sans-serif;
   }
+
+  html,
+  body {
+    color: white;
+  }
 `
 
 export const Root = styled.main``
@@ -20,6 +25,10 @@ export const Content = styled.div`
 
   padding: ${({ theme }) => theme.spacing(2)};
   box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   position: fixed;
   top: 0;
