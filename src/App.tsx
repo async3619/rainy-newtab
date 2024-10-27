@@ -6,7 +6,7 @@ function App() {
   return (
     <Styled.Root>
       <BackgroundCanvas />
-      <Styled.Content>asd</Styled.Content>
+      <Styled.Content></Styled.Content>
     </Styled.Root>
   )
 }
