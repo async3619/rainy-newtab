@@ -5,7 +5,7 @@ export const Root = styled.main``
 export const Content = styled.div`
   width: 100%;
 
-  padding: 16px;
+  padding: ${({ theme }) => theme.spacing(2)};
   box-sizing: border-box;
 
   position: fixed;

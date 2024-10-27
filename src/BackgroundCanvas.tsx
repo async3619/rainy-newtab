@@ -63,6 +63,7 @@ function BackgroundCanvas({ imageSrc }: BackgroundCanvasProps) {
         ref={viewportRef}
         isReady={isReady}
       />
+      <Styled.Overlay isReady={isReady} />
     </Styled.Root>
   )
 }

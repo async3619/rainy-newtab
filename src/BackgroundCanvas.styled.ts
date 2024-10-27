@@ -40,3 +40,17 @@ export const Image = styled.img`
 
   object-fit: cover;
 `
+
+export const Overlay = styled.div<{ isReady: boolean }>`
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  backdrop-filter: brightness(${({ isReady }) => (isReady ? 0.5 : 1)});
+
+  transition: backdrop-filter 1s;
+`
