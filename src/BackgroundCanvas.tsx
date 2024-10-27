@@ -1,50 +1,56 @@
-import * as THREE from 'three'
-
-import { useEffect, useState } from 'react'
-import { invalidate } from '@react-three/fiber'
-import { OrthographicCamera } from '@react-three/drei'
-
-import { ShaderMaterial } from './components/ShaderMaterial.tsx'
-
-import { useWindowSize } from './hooks/useWindowSize'
+import { useEffect, useRef } from 'react'
+import RaindropFX from 'raindrop-fx'
 
 import * as Styled from './BackgroundCanvas.styled'
 
 function BackgroundCanvas() {
-  const { innerWidth, innerHeight } = useWindowSize()
-  const [key, setKey] = useState(`${innerWidth}-${innerHeight}`)
-  const [texture] = useState(() => new THREE.TextureLoader().load('/img.png'))
+  const viewportRef = useRef<HTMLCanvasElement>(null)
+  const raindropsRef = useRef<RaindropFX | null>(null)
 
   useEffect(() => {
-    setKey(`${innerWidth}-${innerHeight}`)
-    invalidate()
-  }, [innerWidth, innerHeight, key])
+    const viewport = viewportRef.current
+    if (!viewport) {
+      return
+    }
+
+    const { width, height } = viewport.getBoundingClientRect()
+    viewport.width = width
+    viewport.height = height
+
+    raindropsRef.current = new RaindropFX({
+      canvas: viewport,
+    })
+
+    raindropsRef.current.start()
+    raindropsRef.current.setBackground('/img.png')
+
+    return () => {
+      raindropsRef.current?.stop()
+    }
+  }, [])
+
+  useEffect(() => {
+    const onResize = () => {
+      const viewport = viewportRef.current
+      const raindrops = raindropsRef.current
+      if (!viewport || !raindrops) {
+        return
+      }
+
+      const { width, height } = viewport.getBoundingClientRect()
+      raindrops.resize(width, height)
+    }
+
+    window.addEventListener('resize', onResize)
+
+    return () => {
+      window.removeEventListener('resize', onResize)
+    }
+  }, [])
 
   return (
     <Styled.Root>
-      <Styled.Viewport
-        camera={{ position: [0, 0, 1] }}
-        key={key}
-      >
-        <OrthographicCamera
-          makeDefault
-          left={-1}
-          right={1}
-          top={1}
-          bottom={-1}
-          near={0.1}
-          far={1000}
-          position={[0, 0, 1]}
-        />
-        <mesh scale={[2, 2, 1]}>
-          <planeGeometry />
-          <ShaderMaterial
-            texture={texture}
-            innerWidth={innerWidth}
-            innerHeight={innerHeight}
-          />
-        </mesh>
-      </Styled.Viewport>
+      <Styled.Viewport ref={viewportRef} />
     </Styled.Root>
   )
 }

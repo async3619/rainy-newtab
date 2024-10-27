@@ -13,20 +13,17 @@
     "@emotion/css": "^11.13.4",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@react-three/drei": "^9.115.0",
-    "@react-three/fiber": "^8.17.10",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
+    "raindrop-fx": "^1.0.8",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "three": "^0.169.0"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
     "@types/lodash": "^4.17.12",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
-    "@types/three": "^0.169.0",
     "@vitejs/plugin-react": "^4.3.3",
     "eslint": "^9.13.0",
     "eslint-plugin-react-hooks": "^5.0.0",
