@@ -13,6 +13,7 @@ import useSessionAppStore from '@stores/session-app'
 import useAppStore from '@stores/app'
 
 import * as Styled from './App.styled'
+import SearchBar from '@components/SearchBar'
 
 function App() {
   const isReady = useSessionAppStore((store) => store.isReady)
@@ -51,6 +52,7 @@ function App() {
         <Styled.Content isReady={isReady}>
           <Clock />
           <Settings />
+          <SearchBar />
         </Styled.Content>
       </Styled.Root>
     </ThemeProvider>

@@ -27,6 +27,7 @@ export const Content = styled.div<{ isReady: boolean }>`
   box-sizing: border-box;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
