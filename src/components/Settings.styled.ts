@@ -17,6 +17,10 @@ export const FileInput = styled.input`
   display: none;
 `
 
+export const RangeInput = styled.input`
+  width: 100%;
+`
+
 export const UploadButton = styled.button`
   width: 100%;
 

@@ -41,7 +41,7 @@ export const Image = styled.img`
   object-fit: cover;
 `
 
-export const Overlay = styled.div<{ isReady: boolean }>`
+export const Overlay = styled.div<{ isReady: boolean; isChanging: boolean }>`
   width: 100%;
   height: 100%;
 
@@ -50,7 +50,6 @@ export const Overlay = styled.div<{ isReady: boolean }>`
   left: 0;
   z-index: 2;
 
-  backdrop-filter: brightness(${({ isReady }) => (isReady ? 0.5 : 1)});
-
-  transition: backdrop-filter 1s;
+  transition: ${({ isChanging }) =>
+    isChanging ? 'none' : 'backdrop-filter 1s'};
 `

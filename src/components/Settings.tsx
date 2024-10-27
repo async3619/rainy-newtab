@@ -14,7 +14,31 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 function Settings() {
   const [open, setOpen] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const changingTimeout = useRef<number | null>(null)
+
+  const dimmingAmount = useAppStore((store) => store.dimmingAmount)
+  const blurAmount = useAppStore((store) => store.blurAmount)
+
+  const setPropertyChanging = useAppStore((store) => store.setPropertyChanging)
+  const setDimmingAmount = useAppStore((store) => store.setDimmingAmount)
+  const setBlurAmount = useAppStore((store) => store.setBlurAmount)
   const setBackgroundImage = useAppStore((store) => store.setBackgroundImage)
+
+  const doChange = (callback: () => void) => {
+    if (changingTimeout.current) {
+      clearTimeout(changingTimeout.current)
+      changingTimeout.current = null
+    }
+
+    setPropertyChanging(true)
+
+    callback()
+
+    changingTimeout.current = setTimeout(() => {
+      setPropertyChanging(false)
+      changingTimeout.current = null
+    }, 500)
+  }
 
   const handleButtonClick = () => {
     setOpen((prev) => !prev)
@@ -41,6 +65,20 @@ function Settings() {
     setBackgroundImage(base64)
   }
 
+  const handleDimmingAmountChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const value = parseFloat(event.target.value)
+    doChange(() => setDimmingAmount(value))
+  }
+
+  const handleBlurAmountChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const value = parseFloat(event.target.value)
+    doChange(() => setBlurAmount(value))
+  }
+
   return (
     <Styled.Root>
       <Panel open={open}>
@@ -60,6 +98,26 @@ function Settings() {
             >
               Upload Image
             </Styled.UploadButton>
+          </FormSection>
+          <FormSection title="Dimming">
+            <Styled.RangeInput
+              type="range"
+              min={0}
+              max={1}
+              value={dimmingAmount}
+              step={0.01}
+              onChange={handleDimmingAmountChange}
+            />
+          </FormSection>
+          <FormSection title="Blur">
+            <Styled.RangeInput
+              type="range"
+              min={1}
+              max={5}
+              value={blurAmount}
+              step={1}
+              onChange={handleBlurAmountChange}
+            />
           </FormSection>
         </Styled.Content>
       </Panel>
