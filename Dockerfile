@@ -7,12 +7,10 @@ RUN npm install -g pnpm
 WORKDIR /app
 COPY . .
 
-# ? Consider --frozen-lockfile
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
-# ? Add checks?
+# TODO Add checks
 
-# ? Consider --prod
 RUN pnpm run build
 
 
