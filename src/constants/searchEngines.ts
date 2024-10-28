@@ -13,6 +13,10 @@ export const SEARCH_ENGINES: Record<
     name: 'DuckDuckGo',
     url: 'https://duckduckgo.com/?q={}',
   },
+  'searx.be': {
+    name: 'Searx.be',
+    url: 'https://searx.be/?q={}',
+  },
   custom: {
     name: 'Custom',
     url: '',
