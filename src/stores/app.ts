@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { Weather } from '@utils/getCurrentWeather'
+import { SearchEngineOption } from '@constants/searchEngines'
 
 interface WeatherHolder {
   weather: Weather
@@ -32,6 +33,12 @@ interface AppStore {
 
   weather: WeatherHolder | null
   setWeather: (weather: Weather) => void
+
+  searchEngine: SearchEngineOption
+  setSearchEngine: (searchEngine: SearchEngineOption) => void
+
+  customSearchEngineURL: string | null
+  setCustomSearchEngineURL: (customSearchEngineURL: string) => void
 }
 
 const useAppStore = create(
@@ -59,6 +66,13 @@ const useAppStore = create(
         const expiresAt = Date.now() + 1000 * 60 * 60 // 1 hour
         set({ weather: { weather, expiresAt } })
       },
+
+      searchEngine: 'google',
+      setSearchEngine: (searchEngine: SearchEngineOption) => set({ searchEngine }),
+
+      customSearchEngineURL: null,
+      setCustomSearchEngineURL: (customSearchEngineURL: string) =>
+        set({ customSearchEngineURL }),
     }),
     {
       name: 'app-store',

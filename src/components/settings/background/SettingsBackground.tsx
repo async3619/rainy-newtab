@@ -1,18 +1,15 @@
-import React, { useRef, useState } from 'react'
-import { MdSettings } from 'react-icons/md'
+import React, { useRef } from 'react'
 
-import Panel from '@components/Panel'
 import FormSection from '@components/FormSection'
 
 import useAppStore from '@stores/app'
 import readFileAsBase64 from '@utils/readFileAsBase64'
 
-import * as Styled from './Settings.styled'
+import * as Styled from './SettingsBackground.styled'
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 
-function Settings() {
-  const [open, setOpen] = useState(false)
+function SettingsBackground() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const changingTimeout = useRef<number | null>(null)
 
@@ -38,10 +35,6 @@ function Settings() {
       setPropertyChanging(false)
       changingTimeout.current = null
     }, 500)
-  }
-
-  const handleButtonClick = () => {
-    setOpen((prev) => !prev)
   }
 
   const handleUploadClick = () => {
@@ -80,52 +73,45 @@ function Settings() {
   }
 
   return (
-    <Styled.Root>
-      <Panel open={open}>
-        <Styled.Content>
-          <FormSection
-            title="Background Image"
-            description="Background image should be maximum 5MB in size."
-          >
-            <Styled.FileInput
-              onChange={handleFileChange}
-              ref={fileInputRef}
-              type="file"
-            />
-            <Styled.UploadButton
-              type="button"
-              onClick={handleUploadClick}
-            >
-              Upload Image
-            </Styled.UploadButton>
-          </FormSection>
-          <FormSection title="Dimming">
-            <Styled.RangeInput
-              type="range"
-              min={0}
-              max={1}
-              value={dimmingAmount}
-              step={0.01}
-              onChange={handleDimmingAmountChange}
-            />
-          </FormSection>
-          <FormSection title="Blur">
-            <Styled.RangeInput
-              type="range"
-              min={1}
-              max={5}
-              value={blurAmount}
-              step={1}
-              onChange={handleBlurAmountChange}
-            />
-          </FormSection>
-        </Styled.Content>
-      </Panel>
-      <Styled.Button onClick={handleButtonClick}>
-        <MdSettings />
-      </Styled.Button>
-    </Styled.Root>
+    <>
+      <FormSection
+        title="Background Image"
+        description="Background image should be maximum 5MB in size."
+      >
+        <Styled.FileInput
+          onChange={handleFileChange}
+          ref={fileInputRef}
+          type="file"
+        />
+        <Styled.UploadButton
+          type="button"
+          onClick={handleUploadClick}
+        >
+          Upload Image
+        </Styled.UploadButton>
+      </FormSection>
+      <FormSection title="Dimming">
+        <Styled.RangeInput
+          type="range"
+          min={0}
+          max={1}
+          value={dimmingAmount}
+          step={0.01}
+          onChange={handleDimmingAmountChange}
+        />
+      </FormSection>
+      <FormSection title="Blur">
+        <Styled.RangeInput
+          type="range"
+          min={1}
+          max={5}
+          value={blurAmount}
+          step={1}
+          onChange={handleBlurAmountChange}
+        />
+      </FormSection>
+    </>
   )
 }
 
-export default Settings
+export default SettingsBackground

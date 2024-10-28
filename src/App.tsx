@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Global, ThemeProvider } from '@emotion/react'
 
 import BackgroundCanvas from '@components/BackgroundCanvas'
-import Settings from '@components/Settings'
+import Settings from '@components/settings/Settings'
 import Clock from '@components/Clock'
 
 import spacing from '@utils/spacing'

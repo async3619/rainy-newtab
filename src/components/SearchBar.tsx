@@ -1,16 +1,18 @@
 import React from 'react'
-import { RiOpenaiFill, RiGoogleFill } from 'react-icons/ri'
+import { RiOpenaiFill, RiSearch2Line } from 'react-icons/ri'
 
 import IconTab, { IconTabItem } from '@components/IconTab'
 
 import * as Styled from './SearchBar.styled'
+import useAppStore from '@stores/app'
+import { SEARCH_ENGINES } from '@constants/searchEngines'
 
-type SearchEngine = 'google' | 'chatgpt'
+type QueryMode = 'websearch' | 'chatgpt'
 
-const SEARCH_ENGiNE_ITEMS: IconTabItem<SearchEngine>[] = [
+const SEARCH_ENGiNE_ITEMS: IconTabItem<QueryMode>[] = [
   {
-    value: 'google',
-    icon: RiGoogleFill,
+    value: 'websearch',
+    icon: RiSearch2Line,
   },
   {
     value: 'chatgpt',
@@ -18,26 +20,37 @@ const SEARCH_ENGiNE_ITEMS: IconTabItem<SearchEngine>[] = [
   },
 ]
 
-const PLACEHOLDER_TEXT: Record<SearchEngine, string> = {
-  google: 'Search Google...',
+const PLACEHOLDER_TEXT: Record<QueryMode, string> = {
+  websearch: 'Search the web...',
   chatgpt: 'Ask ChatGPT...',
 }
 
 function SearchBar() {
   const [query, setQuery] = React.useState('')
-  const [searchEngine, setSearchEngine] = React.useState<SearchEngine>('google')
+  const [queryMode, setQueryMode] = React.useState<QueryMode>('websearch')
+  const { searchEngine, customSearchEngineURL } = useAppStore()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value)
   }
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      if (searchEngine === 'google') {
-        location.href = `https://www.google.com/search?q=${query}`
-      } else if (searchEngine === 'chatgpt') {
-        location.href = `https://chat.openai.com/?q=${query}`
-      }
+    if (event.key !== 'Enter') return
+
+    if (queryMode === 'chatgpt') {
+      location.href = `https://chat.openai.com/?q=${query}`
+      return
+    }
+
+    if (queryMode === 'websearch') {
+      const searchUrl =
+        searchEngine === 'custom'
+          ? customSearchEngineURL
+          : SEARCH_ENGINES[searchEngine].url
+
+      if (!searchUrl) return alert('Please set a custom search engine URL.')
+
+      location.href = searchUrl.replace('{}', encodeURIComponent(query))
     }
   }
 
@@ -45,15 +58,15 @@ function SearchBar() {
     <Styled.Root>
       <Styled.Input
         type="text"
-        placeholder={PLACEHOLDER_TEXT[searchEngine]}
+        placeholder={PLACEHOLDER_TEXT[queryMode]}
         value={query}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
       <Styled.IconTabWrapper>
         <IconTab
-          value={searchEngine}
-          onChange={setSearchEngine}
+          value={queryMode}
+          onChange={setQueryMode}
           items={SEARCH_ENGiNE_ITEMS}
         />
       </Styled.IconTabWrapper>
